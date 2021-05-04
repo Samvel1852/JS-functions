@@ -9,17 +9,45 @@
 
 function validatePhoneNumber(inpNumber) {
   inpNumber = inpNumber.toString().split("");
-  console.log(inpNumber);
-  switch (inpNumber) {
-    case inpNumber.length > 10:
-      if (inpNumber.length === 11) {
-        if (inpNumber[0] === "+") {
-          inpNumber.shift();
-          inpNumber = inpNumber.join("");
-          return Number(inpNumber);
-        }
+  if (inpNumber.includes(" ")) {
+    for (let i = 0; i < inpNumber.length; i++) {
+      if (inpNumber[i] === " ") {
+        inpNumber.splice(i, 1);
       }
+    }
+    inpNumber = inpNumber;
+  }
+  if (inpNumber.length > 10) {
+    if (inpNumber.length === 11 && inpNumber[0] === "+") {
+      inpNumber.shift();
+      inpNumber = inpNumber.join("");
+      return inpNumber;
+    } else {
+      return "This is a bad number";
+    }
+  } else if (inpNumber.length < 10) {
+    return "This is a bad number";
+  } else if (inpNumber.length === 10) {
+    let plusArr = [];
+    if (inpNumber.join("").startsWith("+")) {
+      inpNumber.shift();
+      if (inpNumber.join("").includes("+")) {
+        return "This is a bad number";
+      }
+    } else if (inpNumber.join("").includes("+")) {
+      return "This is a bad number";
+    }
+    for (let i = 0; i < inpNumber.length; i++) {
+      if (inpNumber[i] === "+") {
+        plusArr.push(inpNumber[i]);
+      }
+    }
+    if (plusArr.length > 1) {
+      return "It is a bad number";
+    } else {
+      return inpNumber.join("");
+    }
   }
 }
 
-console.log(validatePhoneNumber("+3747721528"));
+console.log(validatePhoneNumber("+0008989562"));
