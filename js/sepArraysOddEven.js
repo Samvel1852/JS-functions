@@ -1,3 +1,5 @@
+// 1. Given an array of numbers. Write a function to separate odd and even numbers in different arrays.
+
 function sepArraysToOddEven(mainArr) {
   let resArr = [];
   let oddArr = [];
