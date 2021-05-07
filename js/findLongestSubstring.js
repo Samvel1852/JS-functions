@@ -2,19 +2,22 @@
 // character. If there are several,return the last one. Consider that all letters are lowercase.
 
 function findLongestSubstr(str) {
-  let res = "";
-  let resMax = "";
-  for (let char of str) {
-    if (char === " " || char === "'" || !res.includes(char)) {
-      res += char;
+  let resArr = [];
+  let finalResArr = [];
+  let tempArr = [];
+  for (let i = 0; i < str.length; i++) {
+    if (!resArr.includes(str[i]) || str[i] === " ") {
+      resArr.push(str[i]);
     } else {
-      // console.log(res, 1);
-      res = res.slice(res.indexOf(char) + 1) + char;
-      // console.log(res, 2);
+      tempArr = resArr.splice(0, resArr.indexOf(str[i]) + 1);
+      resArr.push(str[i]);
     }
-    resMax = resMax.length <= res.length ? res : resMax;
+    if (tempArr.length > finalResArr.length) {
+      finalResArr.splice(0);
+      finalResArr.push(...tempArr);
+    }
   }
-  return resMax;
+  return finalResArr.join("");
 }
 
 console.log(
